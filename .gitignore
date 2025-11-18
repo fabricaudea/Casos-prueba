@@ -1,0 +1,31 @@
+# Gradle
+.gradle/
+build/
+
+# Eclipse / IntelliJ / VSCode
+bin/
+out/
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Serenity BDD reports
+target/
+serenity/*
+
+.gradle/
+.classpath
+.factorypath
+.settings/
+
+# direnv
+.direnv/
