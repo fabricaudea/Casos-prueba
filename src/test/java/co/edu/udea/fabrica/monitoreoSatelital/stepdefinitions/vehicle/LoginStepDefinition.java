@@ -21,9 +21,9 @@ import org.hamcrest.Matchers;
 
 public class LoginStepDefinition {
 
-	public final Actor user = Actor.named("user");
+	public final Actor user = Actor.named("admin");
 
-	@Managed(driver = "chrome")
+	@Managed(driver = "chrome", uniqueSession = false)
 	public WebDriver theDriver;
 
 	@Before
