@@ -10,6 +10,7 @@ public class FleetUtil {
 		public final static User OPERADOR = new User("operador@demo.com", "Operador123");
 		public final static Vehicle DEFAULT_VEHICLE = new Vehicle("ABC123", "Chevrolet Burstón NGR", "40", "Activo");
 		public final static Vehicle NEW_VEHICLE = new Vehicle("XYZ123", "toyota", "3", "Activo");
+		public final static Vehicle EDIT_VEHICLE = new Vehicle("TES123", "test", "1", "Activo");
 
     public static void waitTime() {
         waitTime(DEFAULT_WAITTIME);

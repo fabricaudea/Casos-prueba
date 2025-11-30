@@ -1,12 +1,10 @@
 package co.edu.udea.fabrica.monitoreoSatelital.stepdefinitions.vehicle;
 
-import org.hamcrest.Matchers;
-import org.openqa.selenium.WebDriver;
-
-import co.edu.udea.fabrica.monitoreoSatelital.questions.IsDefaultVehicle;
-import co.edu.udea.fabrica.monitoreoSatelital.questions.IsNewVehicle;
+import co.edu.udea.fabrica.monitoreoSatelital.questions.AtributeValueBy;
+import co.edu.udea.fabrica.monitoreoSatelital.questions.IsVehiclePresentBy;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.AddThe;
-import co.edu.udea.fabrica.monitoreoSatelital.tasks.GoTo;
+import co.edu.udea.fabrica.monitoreoSatelital.tasks.DeleteThe;
+import co.edu.udea.fabrica.monitoreoSatelital.tasks.EditThe;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.LoginAs;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.OpenThe;
 import co.edu.udea.fabrica.monitoreoSatelital.userinterfaces.FleetPage;
@@ -21,8 +19,11 @@ import net.serenitybdd.screenplay.GivenWhenThen;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import org.hamcrest.Matchers;
+import org.openqa.selenium.WebDriver;
 
 public class VehicleStepDefinition {
+
 	public final Actor user = Actor.named("admin");
 
 	@Managed(driver = "chrome", uniqueSession = false)
@@ -37,69 +38,73 @@ public class VehicleStepDefinition {
 
 	@Given("I am logged into Fleetguard as an administrator")
 	public void iAmLoggedIntoFleetguardAsAnAdministrator() {
-		user.attemptsTo(OpenThe.fleetGuardPage(new FleetPage()), LoginAs.Admin());
+		user.attemptsTo(
+				OpenThe.fleetGuardPage(new FleetPage()),
+				LoginAs.Admin());
 	}
 
 	// view vehicles
 	@When("I view the fleet")
 	public void iViewTheFleet() {
-		FleetUtil.waitTime();
+		FleetUtil.waitTime(4000);
 	}
 
 	@Then("I can see all the vehicles from the fleet")
 	public void iCanSeeAllTheVehiclesFromTheFleet() {
-		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(IsDefaultVehicle.present(), Matchers.containsString(FleetUtil.DEFAULT_VEHICLE.getPlate())));
+		GivenWhenThen.then(user).should(
+				GivenWhenThen.seeThat(
+						IsVehiclePresentBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate()),
+						Matchers.is(false)));
 	}
 
 	// Add vehicle
 
-	@When("I start the registration of a Vehicle")
-	public void iStartTheRegistrationOfAVehicle() {
-		user.attemptsTo(GoTo.registration());
-		FleetUtil.waitTime();
-	}
-
-	@When("I enter the required vehicle information")
-	public void iEnterTheRequiredVehicleInformation() {
+	@When("I correctly register a new vehicle")
+	public void iCorrectlyRegisterANewVehicle() {
 		user.attemptsTo(AddThe.vehicle());
-		FleetUtil.waitTime(10000);
+		FleetUtil.waitTime();
 	}
 
 	@Then("I see that the vehicle was successfully added to the fleet")
 	public void iSeeThatTheVehicleWasSuccessfullyAddedToTheFleet() {
-		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(IsNewVehicle.present(), Matchers.containsString(FleetUtil.NEW_VEHICLE.getPlate())));
+		GivenWhenThen.then(user).should(
+				GivenWhenThen.seeThat(
+						IsVehiclePresentBy.plate(FleetUtil.NEW_VEHICLE.getPlate()),
+						Matchers.is(false)));
 	}
 
 	// Modify vehicle
-	@When("I start modifying a vehicle from the fleet")
-	public void iStartModifyingAVehicleFromTheFleet() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
-	}
-
-	@When("I update its information")
-	public void iUpdateItsInformation() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+	@When("I correctly edit a fiel of an existing vehicle")
+	public void iCorrectlyEditAFielOfAnExistingVehicle() {
+		user.attemptsTo(EditThe.vehicle());
+		FleetUtil.waitTime();
 	}
 
 	@Then("I see that the vehicle information was successfully updated")
 	public void iSeeThatTheVehicleInformationWasSuccessfullyUpdated() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		GivenWhenThen.then(user).should(
+				GivenWhenThen.seeThat(
+						AtributeValueBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate(), "Modelo"),
+						Matchers.containsString(FleetUtil.EDIT_VEHICLE.getModel())));
+
+		GivenWhenThen.then(user).should(
+				GivenWhenThen.seeThat(
+						AtributeValueBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate(), "Capacidad"),
+						Matchers.containsString(FleetUtil.EDIT_VEHICLE.getCapcity())));
 	}
 
 	// remove vehicle
 	@When("I remove a vehicle from the fleet")
 	public void iRemoveAVehicleFromTheFleet() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		user.attemptsTo(DeleteThe.vehicle());
+		FleetUtil.waitTime();
 	}
 
 	@Then("I see that the vehicle was successfully removed")
 	public void iSeeThatTheVehicleWasSuccessfullyRemoved() {
-		// Write code here that turns the phrase above into concrete actions
-		throw new io.cucumber.java.PendingException();
+		GivenWhenThen.then(user).should(
+				GivenWhenThen.seeThat(
+						IsVehiclePresentBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate()),
+						Matchers.is(true)));
 	}
-
 }

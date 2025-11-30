@@ -20,14 +20,12 @@ Feature: Login into fleetguard, add vehicles to the fleet, modify vehicles infor
 
 	Scenario: Add a vehicle to the fleet
   	Given I am logged into Fleetguard as an administrator
-  	When I start the registration of a Vehicle
-  	And I enter the required vehicle information
+		When I correctly register a new vehicle
   	Then I see that the vehicle was successfully added to the fleet
 
 	Scenario: Modify a vehicle information
   	Given I am logged into Fleetguard as an administrator
-  	When I start modifying a vehicle from the fleet
-  	And I update its information
+		When I correctly edit a fiel of an existing vehicle
   	Then I see that the vehicle information was successfully updated
 	
 	Scenario: Remove a vehicle from the fleet

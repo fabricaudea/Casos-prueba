@@ -2,7 +2,7 @@ package co.edu.udea.fabrica.monitoreoSatelital.stepdefinitions.vehicle;
 
 import org.openqa.selenium.WebDriver;
 
-import co.edu.udea.fabrica.monitoreoSatelital.questions.TheUserRole;
+import co.edu.udea.fabrica.monitoreoSatelital.questions.ContentOf;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.LoginAs;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.OpenThe;
 import co.edu.udea.fabrica.monitoreoSatelital.userinterfaces.FleetPage;
@@ -47,7 +47,7 @@ public class LoginStepDefinition {
 
 	@Then("I can access the Fleetguard platform")
 	public void iCanAccessTheFleetguardPlatform() {
-		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(TheUserRole.displayed(), Matchers.containsString("Administrador")));
+		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(ContentOf.role(), Matchers.containsString("Administrador")));
 	}
 
 }

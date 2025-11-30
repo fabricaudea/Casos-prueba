@@ -2,7 +2,7 @@ package co.edu.udea.fabrica.monitoreoSatelital.stepdefinitions.track;
 
 import org.openqa.selenium.WebDriver;
 
-import co.edu.udea.fabrica.monitoreoSatelital.questions.TheUserRole;
+import co.edu.udea.fabrica.monitoreoSatelital.questions.ContentOf;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.LoginAs;
 import co.edu.udea.fabrica.monitoreoSatelital.tasks.OpenThe;
 import co.edu.udea.fabrica.monitoreoSatelital.userinterfaces.FleetPage;
@@ -21,16 +21,16 @@ import org.hamcrest.Matchers;
 
 public class LoginStepDefinition {
 
-	public final Actor user = Actor.named("user");
+	public final Actor user = Actor.named("operator");
 
-	@Managed(driver = "chrome")
+	@Managed(driver = "chrome", uniqueSession = false)
 	public WebDriver theDriver;
 
 	@Before
 	public void config() {
 		user.can(BrowseTheWeb.with(theDriver));
 		OnStage.setTheStage(new OnlineCast());
-		OnStage.theActorCalled("admin");
+		OnStage.theActorCalled("operator");
 	}
 
 	@Given("I am on the Fleetguard login page")
@@ -47,7 +47,7 @@ public class LoginStepDefinition {
 
 	@Then("I can access the Fleetguard platform")
 	public void iCanAccessTheFleetguardPlatform() {
-		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(TheUserRole.displayed(), Matchers.containsString("Opera")));
+		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(ContentOf.role(), Matchers.containsString("Opera")));
 	}
 
 }
