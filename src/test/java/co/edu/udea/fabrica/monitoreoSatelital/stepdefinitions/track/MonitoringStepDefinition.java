@@ -71,24 +71,26 @@ public class MonitoringStepDefinition {
 
 	@Then("I can see it's information")
 	public void iCanSeeItSInformation() {
+		FleetUtil.waitTime();
 		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(ContentOf.plate(), Matchers.containsString(FleetUtil.DEFAULT_VEHICLE.getPlate())));
 	}
 
 	// see position history of a vehicle
 	@When("I go to the fleet history")
 	public void iGoToTheFleetHistory() {
-		user.attemptsTo(GoTo.fleetHistory());
 		FleetUtil.waitTime();
+		user.attemptsTo(GoTo.fleetHistory());
 	}
 
 	@When("I select the history of a vehicle")
 	public void iSelectTheHistoryOfAVehicle() {
-		user.attemptsTo(ReviewThe.vehicle());
 		FleetUtil.waitTime();
+		user.attemptsTo(ReviewThe.vehicle());
 	}
 
 	@Then("I can see it's positions history")
 	public void iCanSeeItSPositionsHistory() {
+		FleetUtil.waitTime();
 		GivenWhenThen.then(user).should(GivenWhenThen.seeThat(ContentOf.historyTableTitle(), Matchers.containsString("Ruta")));
 	}
 

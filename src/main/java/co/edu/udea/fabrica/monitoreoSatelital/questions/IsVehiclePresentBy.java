@@ -15,7 +15,7 @@ public class IsVehiclePresentBy implements Question<Boolean> {
 
 	@Override
 	public Boolean answeredBy(Actor actor) {
-		return BrowseTheWeb.as(actor).findAll(FleetPage.ROW_BY_PLATE.of(plate)).isEmpty();
+		return !BrowseTheWeb.as(actor).findAll(FleetPage.ROW_BY_PLATE.of(plate)).isEmpty();
 	}
 
 	public static IsVehiclePresentBy plate(String plate){

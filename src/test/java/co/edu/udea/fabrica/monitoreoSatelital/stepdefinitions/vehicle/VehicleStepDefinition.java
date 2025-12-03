@@ -46,7 +46,7 @@ public class VehicleStepDefinition {
 	// view vehicles
 	@When("I view the fleet")
 	public void iViewTheFleet() {
-		FleetUtil.waitTime(4000);
+		FleetUtil.waitTime(8000);
 	}
 
 	@Then("I can see all the vehicles from the fleet")
@@ -54,34 +54,36 @@ public class VehicleStepDefinition {
 		GivenWhenThen.then(user).should(
 				GivenWhenThen.seeThat(
 						IsVehiclePresentBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate()),
-						Matchers.is(false)));
+						Matchers.is(true)));
 	}
 
 	// Add vehicle
 
 	@When("I correctly register a new vehicle")
 	public void iCorrectlyRegisterANewVehicle() {
-		user.attemptsTo(AddThe.vehicle());
 		FleetUtil.waitTime();
+		user.attemptsTo(AddThe.vehicle());
 	}
 
 	@Then("I see that the vehicle was successfully added to the fleet")
 	public void iSeeThatTheVehicleWasSuccessfullyAddedToTheFleet() {
+		FleetUtil.waitTime();
 		GivenWhenThen.then(user).should(
 				GivenWhenThen.seeThat(
 						IsVehiclePresentBy.plate(FleetUtil.NEW_VEHICLE.getPlate()),
-						Matchers.is(false)));
+						Matchers.is(true)));
 	}
 
 	// Modify vehicle
 	@When("I correctly edit a fiel of an existing vehicle")
 	public void iCorrectlyEditAFielOfAnExistingVehicle() {
-		user.attemptsTo(EditThe.vehicle());
 		FleetUtil.waitTime();
+		user.attemptsTo(EditThe.vehicle());
 	}
 
 	@Then("I see that the vehicle information was successfully updated")
 	public void iSeeThatTheVehicleInformationWasSuccessfullyUpdated() {
+		FleetUtil.waitTime();
 		GivenWhenThen.then(user).should(
 				GivenWhenThen.seeThat(
 						AtributeValueBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate(), "Modelo"),
@@ -102,9 +104,10 @@ public class VehicleStepDefinition {
 
 	@Then("I see that the vehicle was successfully removed")
 	public void iSeeThatTheVehicleWasSuccessfullyRemoved() {
+		FleetUtil.waitTime();
 		GivenWhenThen.then(user).should(
 				GivenWhenThen.seeThat(
 						IsVehiclePresentBy.plate(FleetUtil.DEFAULT_VEHICLE.getPlate()),
-						Matchers.is(true)));
+						Matchers.is(false)));
 	}
 }
